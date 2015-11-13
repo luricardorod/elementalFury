@@ -7,7 +7,7 @@ public class CharacterRotation : MonoBehaviour {
 	void Start () {
 		cam = Camera.main;
 	}
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		var mousePosition = cam.ScreenToWorldPoint (Input.mousePosition);
