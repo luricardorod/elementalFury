@@ -3,9 +3,12 @@ using System.Collections;
 
 public class PlayerAttack : MonoBehaviour {
 	private string magic = "fire";
-	public float refresh = 3f;
+	public float refresh = 1f;
 	private float startRefresh;
 	private Camera cam;
+	public GameObject magicObject;
+	private GameObject cloneMagic;
+
 
 	// Use this for initialization
 	void Start () {
@@ -35,16 +38,23 @@ public class PlayerAttack : MonoBehaviour {
 			magic = "special";
 		}
 
+		shoot();
+
 	}
 
-	void FixedUpdate(){
+	void shoot(){
 		var mousePosition = cam.ScreenToWorldPoint (Input.mousePosition);
 
-			if (Input.GetMouseButtonDown(0) && Time.time > startRefresh){
-				startRefresh = Time.time + refresh;
+		Debug.Log(mousePosition.x);
+			startRefresh += Time.deltaTime;
+
+			if (Input.GetMouseButtonDown(0) && startRefresh > refresh){
+				startRefresh = 0;
 				switch(magic){
 					case "fire":
-						Debug.Log("fuego");
+					cloneMagic = Instantiate(magicObject, transform.position, Quaternion.identity) as GameObject;
+					cloneMagic.GetComponent<Rigidbody2D>().AddForce (new Vector2 (mousePosition.x, mousePosition.y ));
+
 					break;
 					case "earth":
 						Debug.Log("tierra");

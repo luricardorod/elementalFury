@@ -2,24 +2,42 @@
 using System.Collections;
 
 public class enemyProfile : MonoBehaviour {
-	public int damage; 
+	public int damage;
+	private float timer;
+	public	float timerDamageCharly = 5;
 	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		timer = timerDamageCharly;
 	}
 
-	void OnCollisionEnter2D(Collision2D coll) 
+	// Update is called once per frame
+	void Update () {
+		timer += Time.deltaTime;
+	}
+
+	void OnCollisionStay2D(Collision2D coll)
 	{
 		// If the Collider2D component is enabled on the object we collided with
 		if (coll.gameObject.name == "Charly") {
 			//coll.gameObject.GetComponent <health> = coll.gameObject.GetComponent <health> - damage;
-			coll.gameObject.GetComponent <health>().healthPoints = coll.gameObject.GetComponent <health>().healthPoints - damage;
+			gameObject.GetComponent<movementEnemy>().velocidad = 0f;
+			if (timer > timerDamageCharly) {
+				coll.gameObject.GetComponent <health>().healthPoints = coll.gameObject.GetComponent <health>().healthPoints - damage;
+				timer = 0;
+			}
 		}
-		
+
+
+	}
+
+	void OnCollisionExit2D(Collision2D coll)
+	{
+		// If the Collider2D component is enabled on the object we collided with
+		if (coll.gameObject.name == "Charly") {
+			//coll.gameObject.GetComponent <health> = coll.gameObject.GetComponent <health> - damage;
+			gameObject.GetComponent<movementEnemy>().velocidad = 3f;
+
+		}
+
 	}
 }
