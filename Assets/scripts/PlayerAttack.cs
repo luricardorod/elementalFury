@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour {
 	private Camera cam;
 	public GameObject magicObject;
 	private GameObject cloneMagic;
+	public float bulletSpeed = 7f;
 
 
 	// Use this for initialization
@@ -45,15 +46,21 @@ public class PlayerAttack : MonoBehaviour {
 	void shoot(){
 		var mousePosition = cam.ScreenToWorldPoint (Input.mousePosition);
 
-		Debug.Log(mousePosition.x);
 			startRefresh += Time.deltaTime;
 
 			if (Input.GetMouseButtonDown(0) && startRefresh > refresh){
 				startRefresh = 0;
+
 				switch(magic){
 					case "fire":
 					cloneMagic = Instantiate(magicObject, transform.position, Quaternion.identity) as GameObject;
-					cloneMagic.GetComponent<Rigidbody2D>().AddForce (new Vector2 (mousePosition.x, mousePosition.y ));
+
+					float z = Mathf.Atan2 ((mousePosition.y - transform.position.y), (mousePosition.x - transform.position.x)) * Mathf.Rad2Deg -90;
+					cloneMagic.transform.eulerAngles = new Vector3 (0,0,z);
+					cloneMagic.GetComponent<Rigidbody2D>().AddForce(cloneMagic.transform.up * bulletSpeed);
+
+					cloneMagic.tag = "fireMagic";
+					Destroy(cloneMagic.gameObject, 5f);
 
 					break;
 					case "earth":
