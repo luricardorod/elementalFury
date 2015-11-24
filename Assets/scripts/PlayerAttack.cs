@@ -4,7 +4,10 @@ using System.Collections;
 public class PlayerAttack : MonoBehaviour {
 	private string magic = "fire";
 	public float refresh = 1f;
+	private float bulletX, bulletY;
 	private float startRefresh;
+	public float velocidadDisparo;
+	private float factorUnitario;
 	private Camera cam;
 	public GameObject magicObject;
 	private GameObject cloneMagic;
@@ -45,7 +48,6 @@ public class PlayerAttack : MonoBehaviour {
 	void shoot(){
 		var mousePosition = cam.ScreenToWorldPoint (Input.mousePosition);
 
-		Debug.Log(mousePosition.x);
 			startRefresh += Time.deltaTime;
 
 			if (Input.GetMouseButtonDown(0) && startRefresh > refresh){
@@ -53,7 +55,10 @@ public class PlayerAttack : MonoBehaviour {
 				switch(magic){
 					case "fire":
 					cloneMagic = Instantiate(magicObject, transform.position, Quaternion.identity) as GameObject;
-					cloneMagic.GetComponent<Rigidbody2D>().AddForce (new Vector2 (mousePosition.x, mousePosition.y ));
+					bulletX = mousePosition.x - transform.position.x;
+					bulletY = mousePosition.y - transform.position.y;
+					factorUnitario = Mathf.Sqrt((bulletX * bulletX) + (bulletY * bulletY));
+					cloneMagic.GetComponent<Rigidbody2D>().AddForce (new Vector2 (bulletX / factorUnitario, bulletY / factorUnitario) * velocidadDisparo);
 
 					break;
 					case "earth":
