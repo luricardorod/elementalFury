@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour {
 	private Camera cam;
 	public GameObject magicObject;
 	private GameObject cloneMagic;
+	public float bulletSpeed = 7f;
 
 
 	// Use this for initialization
@@ -52,6 +53,7 @@ public class PlayerAttack : MonoBehaviour {
 
 			if (Input.GetMouseButtonDown(0) && startRefresh > refresh){
 				startRefresh = 0;
+
 				switch(magic){
 					case "fire":
 					cloneMagic = Instantiate(magicObject, transform.position, Quaternion.identity) as GameObject;

@@ -5,6 +5,10 @@ public class enemyProfile : MonoBehaviour {
 	public int damage;
 	private float timer;
 	public	float timerDamageCharly = 5;
+
+	public string enemyElement;
+	public int life = 2;
+
 	// Use this for initialization
 	void Start () {
 		timer = timerDamageCharly;
@@ -38,6 +42,23 @@ public class enemyProfile : MonoBehaviour {
 			gameObject.GetComponent<movementEnemy>().velocidad = 3f;
 
 		}
+}
+	//Enemy takes damage
+	void OnTriggerEnter2D(Collider2D bullet)
+	{
+		// If the Collider2D component is enabled on the object we collided with
+		if (bullet.gameObject.name == "Magic(Clone)") {
+			Destroy(bullet.gameObject);
+			TakeDamage(bullet);
 
+		}
 	}
+	void TakeDamage (Collider2D bullet){
+		if (bullet.gameObject.tag == enemyElement){
+			life --;
+		} else {
+			life ++;
+		}
+	}
+
 }
