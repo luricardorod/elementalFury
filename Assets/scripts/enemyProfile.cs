@@ -47,7 +47,7 @@ public class enemyProfile : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D bullet)
 	{
 		// If the Collider2D component is enabled on the object we collided with
-		if (bullet.gameObject.name == "Magic(Clone)") {
+		if (bullet.gameObject.name == "magicBullet(Clone)") {
 			Destroy(bullet.gameObject);
 			TakeDamage(bullet);
 
@@ -55,9 +55,12 @@ public class enemyProfile : MonoBehaviour {
 	}
 	void TakeDamage (Collider2D bullet){
 		if (bullet.gameObject.tag == enemyElement){
-			life --;
-		} else {
 			life ++;
+		} else {
+			life --;
+		}
+		if (life < 1) {
+			Destroy(gameObject);
 		}
 	}
 

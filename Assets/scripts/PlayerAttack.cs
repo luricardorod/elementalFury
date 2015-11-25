@@ -12,6 +12,11 @@ public class PlayerAttack : MonoBehaviour {
 	public GameObject magicObject;
 	private GameObject cloneMagic;
 	public float bulletSpeed = 7f;
+	public Sprite spriteFire;
+	public Sprite spriteEarth;
+	public Sprite spriteMetal;
+	public Sprite spriteWater;
+	public Sprite spriteWood;
 
 
 	// Use this for initialization
@@ -53,26 +58,35 @@ public class PlayerAttack : MonoBehaviour {
 
 			if (Input.GetMouseButtonDown(0) && startRefresh > refresh){
 				startRefresh = 0;
+				cloneMagic = Instantiate(magicObject, transform.position, Quaternion.identity) as GameObject;
+				bulletX = mousePosition.x - transform.position.x;
+				bulletY = mousePosition.y - transform.position.y;
+				factorUnitario = Mathf.Sqrt((bulletX * bulletX) + (bulletY * bulletY));
+				cloneMagic.GetComponent<Rigidbody2D>().AddForce (new Vector2 (bulletX / factorUnitario, bulletY / factorUnitario) * velocidadDisparo);
 
 				switch(magic){
 					case "fire":
-					cloneMagic = Instantiate(magicObject, transform.position, Quaternion.identity) as GameObject;
-					bulletX = mousePosition.x - transform.position.x;
-					bulletY = mousePosition.y - transform.position.y;
-					factorUnitario = Mathf.Sqrt((bulletX * bulletX) + (bulletY * bulletY));
-					cloneMagic.GetComponent<Rigidbody2D>().AddForce (new Vector2 (bulletX / factorUnitario, bulletY / factorUnitario) * velocidadDisparo);
-
+						cloneMagic.tag = "fireMagic";
+						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteFire;
 					break;
 					case "earth":
+						cloneMagic.tag = "earthMagic";
+						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteEarth;
 						Debug.Log("tierra");
 					break;
 					case "metal":
+						cloneMagic.tag = "metalMagic";
+						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteMetal;
 						Debug.Log("metal");
 					break;
 					case "water":
+						cloneMagic.tag = "waterMagic";
+						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteWater;
 						Debug.Log("agua");
 					break;
 					case "wood":
+						cloneMagic.tag = "woodMagic";
+						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteWood;
 						Debug.Log("madera");
 					break;
 					default:
