@@ -13,7 +13,7 @@ public class destroyObjects : MonoBehaviour {
 
 	}
 
-	void OnTriggerExit2D(Collider2D  other)
+	void OnTriggerEnter2D(Collider2D  other)
 	{
 		// If the Collider2D component is enabled on the object we collided with
 		if (other.gameObject.name == "magicBullet(Clone)") {
