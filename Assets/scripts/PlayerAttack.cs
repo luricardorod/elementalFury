@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour {
 	private Camera cam;
 	public GameObject magicObject;
 	private GameObject cloneMagic;
+	public GameObject shootPoint;
 	public float bulletSpeed = 7f;
 	public Sprite spriteFire;
 	public Sprite spriteEarth;
@@ -58,7 +59,7 @@ public class PlayerAttack : MonoBehaviour {
 
 			if (Input.GetMouseButtonDown(0) && startRefresh > refresh){
 				startRefresh = 0;
-				cloneMagic = Instantiate(magicObject, transform.position, Quaternion.identity) as GameObject;
+				cloneMagic = Instantiate(magicObject, shootPoint.transform.position, Quaternion.identity) as GameObject;
 				bulletX = mousePosition.x - transform.position.x;
 				bulletY = mousePosition.y - transform.position.y;
 				factorUnitario = Mathf.Sqrt((bulletX * bulletX) + (bulletY * bulletY));

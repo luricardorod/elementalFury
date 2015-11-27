@@ -56,8 +56,26 @@ public class enemyProfile : MonoBehaviour {
 	void TakeDamage (Collider2D bullet){
 		if (bullet.gameObject.tag == enemyElement){
 			life ++;
-		} else {
-			life --;
+		} else if( enemyElement == "fireMagic") {
+			if (bullet.gameObject.tag == "waterMagic") {
+				life --;
+			}
+		} else if( enemyElement == "waterMagic") {
+			if (bullet.gameObject.tag == "earthMagic") {
+				life --;
+			}
+		} else if( enemyElement == "earthMagic") {
+			if (bullet.gameObject.tag == "woodMagic") {
+				life --;
+			}
+		} else if( enemyElement == "woodMagic") {
+			if (bullet.gameObject.tag == "metalMagic") {
+				life --;
+			}
+		} else if( enemyElement == "metalMagic") {
+			if (bullet.gameObject.tag == "fireMagic") {
+				life --;
+			}
 		}
 		if (life < 1) {
 			Destroy(gameObject);
