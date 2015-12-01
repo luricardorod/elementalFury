@@ -4,14 +4,18 @@ using System.Collections;
 public class enemyProfile : MonoBehaviour {
 	public int damage;
 	private float timer;
-	public	float timerDamageCharly = 5;
+	public	float timerDamageCharly = 2;
 
 	public string enemyElement;
 	public int life = 2;
 
+	private Animator anim;
+
 	// Use this for initialization
 	void Start () {
 		timer = timerDamageCharly;
+		anim = GetComponent <Animator>();
+		anim.SetBool("moving",true);
 	}
 
 	// Update is called once per frame
@@ -19,12 +23,13 @@ public class enemyProfile : MonoBehaviour {
 		timer += Time.deltaTime;
 	}
 
-	void OnCollisionStay2D(Collision2D coll)
+	void OnTriggerStay2D(Collider2D coll)
 	{
 		// If the Collider2D component is enabled on the object we collided with
 		if (coll.gameObject.name == "Charly") {
-			//coll.gameObject.GetComponent <health> = coll.gameObject.GetComponent <health> - damage;
 			gameObject.GetComponent<movementEnemy>().velocidad = 0f;
+			anim.SetBool("moving",false);
+			anim.SetBool("attacking",true);
 			if (timer > timerDamageCharly) {
 				coll.gameObject.GetComponent <health>().healthPoints = coll.gameObject.GetComponent <health>().healthPoints - damage;
 				timer = 0;
@@ -34,12 +39,14 @@ public class enemyProfile : MonoBehaviour {
 
 	}
 
-	void OnCollisionExit2D(Collision2D coll)
+	void OnTriggerExit2D(Collider2D coll)
 	{
 		// If the Collider2D component is enabled on the object we collided with
 		if (coll.gameObject.name == "Charly") {
 			//coll.gameObject.GetComponent <health> = coll.gameObject.GetComponent <health> - damage;
 			gameObject.GetComponent<movementEnemy>().velocidad = 3f;
+			anim.SetBool("moving",true);
+			anim.SetBool("attacking",false);
 
 		}
 }
@@ -78,7 +85,8 @@ public class enemyProfile : MonoBehaviour {
 			}
 		}
 		if (life < 1) {
-			Destroy(gameObject);
+			anim.SetBool ("dead",true);
+			Destroy(gameObject,1f);
 		}
 	}
 

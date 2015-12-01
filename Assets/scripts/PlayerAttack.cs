@@ -13,11 +13,8 @@ public class PlayerAttack : MonoBehaviour {
 	private GameObject cloneMagic;
 	public GameObject shootPoint;
 	public float bulletSpeed = 7f;
-	public Sprite spriteFire;
-	public Sprite spriteEarth;
-	public Sprite spriteMetal;
-	public Sprite spriteWater;
-	public Sprite spriteWood;
+
+	private Animator anim;
 
 
 	// Use this for initialization
@@ -60,35 +57,32 @@ public class PlayerAttack : MonoBehaviour {
 			if (Input.GetMouseButtonDown(0) && startRefresh > refresh){
 				startRefresh = 0;
 				cloneMagic = Instantiate(magicObject, shootPoint.transform.position, Quaternion.identity) as GameObject;
+				cloneMagic.transform.eulerAngles = new Vector3(0,0,transform.eulerAngles.z - 90);
 				bulletX = mousePosition.x - transform.position.x;
 				bulletY = mousePosition.y - transform.position.y;
 				factorUnitario = Mathf.Sqrt((bulletX * bulletX) + (bulletY * bulletY));
 				cloneMagic.GetComponent<Rigidbody2D>().AddForce (new Vector2 (bulletX / factorUnitario, bulletY / factorUnitario) * velocidadDisparo);
-
+				anim = cloneMagic.GetComponent<Animator>();
 				switch(magic){
 					case "fire":
 						cloneMagic.tag = "fireMagic";
-						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteFire;
+						anim.SetInteger("magic",1);
 					break;
 					case "earth":
 						cloneMagic.tag = "earthMagic";
-						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteEarth;
-						Debug.Log("tierra");
+						anim.SetInteger("magic",2);
 					break;
 					case "metal":
 						cloneMagic.tag = "metalMagic";
-						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteMetal;
-						Debug.Log("metal");
+						anim.SetInteger("magic",3);
 					break;
 					case "water":
 						cloneMagic.tag = "waterMagic";
-						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteWater;
-						Debug.Log("agua");
+						anim.SetInteger("magic",4);
 					break;
 					case "wood":
 						cloneMagic.tag = "woodMagic";
-						cloneMagic.GetComponent<SpriteRenderer>().sprite = spriteWood;
-						Debug.Log("madera");
+						anim.SetInteger("magic",5);
 					break;
 					default:
 					break;

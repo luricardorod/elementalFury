@@ -3,8 +3,8 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
 
-	public float spawnTime = 5f;
-	public float timer = 5;
+	public float spawnTime = 10f;
+	public float timer = 10;
 	public GameObject[] enemies;
 	int enemyNumber = 1;
 
