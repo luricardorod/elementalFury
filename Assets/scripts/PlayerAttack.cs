@@ -12,9 +12,17 @@ public class PlayerAttack : MonoBehaviour {
 	public GameObject magicObject;
 	private GameObject cloneMagic;
 	public GameObject shootPoint;
+	public GameObject magicSelected;
 	public float bulletSpeed = 7f;
 
 	private Animator anim;
+
+	public Sprite spriteFire;
+	public Sprite spriteEarth;
+	public Sprite spriteMetal;
+	public Sprite spriteWater;
+	public Sprite spriteWood;
+	public Sprite spriteSpecial;
 
 
 	// Use this for initialization
@@ -27,22 +35,28 @@ public class PlayerAttack : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetKeyDown ("1")){
+			magicSelected.GetComponent<SpriteRenderer>().sprite = spriteFire;
 			magic = "fire";
 		}
 		if (Input.GetKeyDown ("2")){
 			magic = "earth";
+			magicSelected.GetComponent<SpriteRenderer>().sprite = spriteEarth;
 		}
 		if (Input.GetKeyDown ("3")){
 			magic = "metal";
+			magicSelected.GetComponent<SpriteRenderer>().sprite = spriteMetal;
 		}
 		if (Input.GetKeyDown ("4")){
 			magic = "water";
+			magicSelected.GetComponent<SpriteRenderer>().sprite = spriteWater;
 		}
 		if (Input.GetKeyDown ("5")){
 			magic = "wood";
+			magicSelected.GetComponent<SpriteRenderer>().sprite = spriteWood;
 		}
 		if (Input.GetKeyDown ("6")){
 			magic = "special";
+			magicSelected.GetComponent<SpriteRenderer>().sprite = spriteSpecial;
 		}
 
 		shoot();
@@ -61,7 +75,6 @@ public class PlayerAttack : MonoBehaviour {
 				bulletX = mousePosition.x - transform.position.x;
 				bulletY = mousePosition.y - transform.position.y;
 				factorUnitario = Mathf.Sqrt((bulletX * bulletX) + (bulletY * bulletY));
-				cloneMagic.GetComponent<Rigidbody2D>().AddForce (new Vector2 (bulletX / factorUnitario, bulletY / factorUnitario) * velocidadDisparo);
 				anim = cloneMagic.GetComponent<Animator>();
 				switch(magic){
 					case "fire":
@@ -87,6 +100,7 @@ public class PlayerAttack : MonoBehaviour {
 					default:
 					break;
 				}
+				cloneMagic.GetComponent<Rigidbody2D>().AddForce (new Vector2 (bulletX / factorUnitario, bulletY / factorUnitario) * velocidadDisparo);
 			}
 	}
 }

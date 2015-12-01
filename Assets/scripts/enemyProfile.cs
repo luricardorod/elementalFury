@@ -10,6 +10,7 @@ public class enemyProfile : MonoBehaviour {
 	public int life = 2;
 
 	private Animator anim;
+	private GameObject scorePlayer;
 
 	// Use this for initialization
 	void Start () {
@@ -90,4 +91,9 @@ public class enemyProfile : MonoBehaviour {
 		}
 	}
 
+	void OnDestroy() {
+      print("Script was destroyed");
+			scorePlayer = GameObject.Find("score");
+			scorePlayer.GetComponent<Score>().puntuacion = scorePlayer.GetComponent<Score>().puntuacion + 1;
+    }
 }

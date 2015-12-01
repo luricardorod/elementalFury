@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour {
 	public float spawnTime = 10f;
 	public float timer = 10;
 	public GameObject[] enemies;
-	int enemyNumber = 1;
+	public int enemyNumber = 1;
 
 
 	public void Start ()
