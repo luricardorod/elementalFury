@@ -88,12 +88,10 @@ public class enemyProfile : MonoBehaviour {
 		if (life < 1) {
 			anim.SetBool ("dead",true);
 			Destroy(gameObject,1f);
-		}
-	}
-
-	void OnDestroy() {
       print("Script was destroyed");
 			scorePlayer = GameObject.Find("score");
 			scorePlayer.GetComponent<Score>().puntuacion = scorePlayer.GetComponent<Score>().puntuacion + 1;
-    }
+		}
+	}
+
 }
